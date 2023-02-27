@@ -38,7 +38,8 @@ class Auth_model extends CI_Model
               </div>');
         redirect('auth');
       }
-      if (password_verify($pass, $cek->password)) {
+      // exit;
+      if (md5($pass) == $cek->password) {
         $data = [
           'user' => $cek->username,
           'role' => $cek->id_role,

@@ -17,6 +17,7 @@ class Admin_model extends CI_Model
         'id_menu' => $m->id_menu,
         'title' => $m->title,
         'icon' => $m->icon,
+        'url' => $m->url,
         'is_active' => $m->is_active,
         'submenu' => $this->db->query("SELECT * FROM user_submenu WHERE id_menu =$m->id_menu AND is_active = 1 ORDER BY no_urut ASC")->result()
       ];

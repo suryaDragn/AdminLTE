@@ -22,28 +22,37 @@
       type: 'post',
       dataType: 'json',
       success: function(data) {
+        console.log(data);
         var menu = ''
         for (var i = 0; i < data.length; i++) {
           var sub = '';
-          for (var j = 0; j < data[i].submenu.length; j++) {
-            submenu = '<li class="nav-item ml-2" data-url="' + data[i].submenu[j].url + '">' +
-            '<a href="#' + data[i].submenu[j].url + '" class="nav-link">' +
-            '<i class="' + data[i].submenu[j].icon + ' nav-icon"></i>' +
-            '<p>' + data[i].submenu[j].title + '</p>' +
-            '</a>' +
-            '</li>';
-            sub += submenu;
+          var menu_href = data[0].url;
+          if(data[i].submenu.length > 0){
+            for (var j = 0; j < data[i].submenu.length; j++) {
+              submenu = '<li class="nav-item ml-2" data-url="' + data[i].submenu[j].url + '">' +
+              '<a href="' + data[i].submenu[j].url + '" class="nav-link">' +
+              '<i class="' + data[i].submenu[j].icon + ' nav-icon"></i>' +
+              '<p>' + data[i].submenu[j].title + '</p>' +
+              '</a>' +
+              '</li>';
+              sub += submenu;
+            }
+            menu_href = '#';
           }
+          console.log(menu_href);
           menu += '<li class="nav-item has-treeview">' +
-          '<a href="#" class="nav-link">' +
+          '<a href="'+menu_href+'" class="nav-link">' +
           '<i class="nav-icon ' + data[i].icon + '"></i>' +
           '<p>' +
-          data[i].title +
-          '<i class="right fas fa-angle-left"></i>' +
-          '</p>' +
-          '</a>' +
-          '<ul class="nav nav-treeview submenu" >' + sub + '</ul>' +
-          '</li>';
+          data[i].title ;
+          if(sub != ''){
+            menu +=
+            '<i class="right fas fa-angle-left"></i>' +
+            '</p>' +
+            '</a>' +
+            '<ul class="nav nav-treeview submenu" >' + sub + '</ul>' +
+            '</li>';
+          }
         }
         $('#menu').html(menu);
         $('.nav-link').click(function() {
