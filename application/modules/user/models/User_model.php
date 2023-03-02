@@ -81,7 +81,7 @@ class User_model extends CI_Model
         $id = htmlspecialchars($this->input->post('id'));
         $pass = htmlspecialchars($this->input->post('pass'));
         $data = [
-            'password' => password_hash($pass, PASSWORD_DEFAULT)
+            'password' => md5($pass),
         ];
         $this->db->where($this->id, $id);
         $this->db->update($this->table, $data);
@@ -104,7 +104,7 @@ class User_model extends CI_Model
         }
         $data = [
             'username' => $user,
-            'password' => password_hash($pass, PASSWORD_DEFAULT),
+            'password' => md5($pass),
             'id_role' => $id_role,
             'is_active' => 1
         ];

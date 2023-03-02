@@ -13,7 +13,6 @@ class Auth extends MY_Controller {
   }
 
   public function index() {
-    print_r($this->session->userdata());
     $this->form_validation->set_rules($this->model->rules());
 
     if ($this->form_validation->run()) {

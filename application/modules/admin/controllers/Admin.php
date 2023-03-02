@@ -46,4 +46,7 @@ class Admin extends MY_Controller
     $this->session->sess_destroy();
     redirect('auth');
   }
+  public function changePassword(){
+    
+  }
 }

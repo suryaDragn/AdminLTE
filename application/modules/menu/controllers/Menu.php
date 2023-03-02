@@ -57,9 +57,9 @@ class Menu extends MY_Controller
 			$order = '<button data-order="' . $d->no_order . '" data-id_menu="' . $d->id_menu . '" class="btn btn-danger btn-xs down"><i class="fas fa-fw fa-arrow-down"></i></button> <button data-order="' . $d->no_order . '" data-id_menu="' . $d->id_menu . '" class="btn btn-success btn-xs up"><i class="fas fa-fw fa-arrow-up"></i></button>';
 			$submenu = '<button type="button" class="btn btn-success btn-xs sub" data-id_menu="' . $d->id_menu . '"><i class="fas fa-fw fa-eye"></i> Submenu</button>';
 			$icon = '<i class="' . $d->icon . '"></i>';
-			$btn_edit = '<button type="button" class="btn btn-success btn-xs edit" data-icon="' . $d->icon . '" data-title="' . $d->title . '" data-id_menu="' . $d->id_menu . '"><i class="fas fa-fw fa-pen"></i> Edit</button>';
+			$btn_edit = '<button type="button" class="btn btn-success btn-xs edit" data-icon="' . $d->icon . '" data-title="' . $d->title . '" data-id_menu="' . $d->id_menu . '" data-url="'.$d->url.'"><i class="fas fa-fw fa-pen"></i> Edit</button>';
 			$btn_hapus = '<button ' . $disabled . ' type="button" class="btn btn-danger btn-xs hapus"  data-id_menu="' . $d->id_menu . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
-			$data[] = array($i, $d->title, $icon, $order, $active, $submenu, $btn_edit . ' ' . $btn_hapus);
+			$data[] = array($i, $d->title, $icon,$d->url, $order, $active, $submenu, $btn_edit . ' ' . $btn_hapus);
 		}
 
 		$output = array(

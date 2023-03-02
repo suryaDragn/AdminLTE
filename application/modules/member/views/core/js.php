@@ -67,7 +67,7 @@
       "serverSide": true,
       "order": [],
       "ajax": {
-        "url": "<?= site_url('menu/getLists'); ?>",
+        "url": "<?= site_url('member/getList'); ?>",
         "type": "POST"
       },
       "columnDefs": [{
@@ -77,44 +77,7 @@
       }]
 
     });
-    $('#data').on('click',
-      '.down',
-      function() {
-        no = $(this).data('order');
-        id = $(this).data('id_menu');
-        $.ajax({
-          url: '<?= site_url('menu/down') ?>',
-          type: 'post',
-          data: {
-            no_order: no,
-            id_menu: id
-          },
-          dataType: 'json',
-          success: function(result) {
-            show_data();
-            $('#myData').DataTable().ajax.reload();
-          }
-        })
-      });
-    $('#data').on('click',
-      '.up',
-      function() {
-        no = $(this).data('order');
-        id = $(this).data('id_menu');
-        $.ajax({
-          url: '<?= site_url('menu/up') ?>',
-          type: 'post',
-          data: {
-            no_order: no,
-            id_menu: id
-          },
-          dataType: 'json',
-          success: function(result) {
-            show_data();
-            $('#myData').DataTable().ajax.reload();
-          }
-        })
-      });
+
     $('#tambah').click(function() {
       $('.modal-body').html(form);
       aksi = '<input type="hidden" name="aksi" id="aksi">';
@@ -133,16 +96,22 @@
         $('#add').html(aksi);
         $('#modal').find('h5').html('Edit')
         $('#modal').find('#btn').html('Edit')
-        id = $(this).data('id_menu');
-        title = $(this).data('title');
-        icon = $(this).data('icon');
-        url = $(this).data('url');
-        $('#aksi').val('edit');
-        $('#id').val(id);
-        $('#title').val(title);
-        $('#icon').val(icon);
-        $('#url').val(url);
-        $('#modal').modal('show');
+        id = $(this).data('id_member');
+        $.ajax({
+            url:'<?= site_url('member/getData'); ?>',
+            type:'post',
+            dataType:'json',
+            data:{
+              id_member:id,
+            },success:function(data){
+              $('#id').val(data.id);
+              $('#nama_member').val(data.nama_member);
+              $('#jenis_mobil').val(data.jenis_mobil);
+              $('#plaT_nomor').val(data.plat_nomor);
+              $('#aksi').val('edit');
+              $('#modal').modal('show');
+            }
+        });
       });
     $('#data').on('click',
       '.hapus',
@@ -154,7 +123,7 @@
         $('.modal-body').html(aksi);
         $('#modal').find('h5').html('Hapus')
         $('#modal').find('#btn').html('Hapus')
-        id = $(this).data('id_menu');
+        id = $(this).data('id_member');
         $('#aksi').val('hapus');
         $('#id').val(id);
         $('#modal').modal('show');
@@ -162,7 +131,7 @@
     $('#form').submit(function(e) {
       e.preventDefault();
       $.ajax({
-        url: '<?= site_url('menu/aksi') ?>',
+        url: '<?= site_url('member/aksi') ?>',
         type: 'post',
         data: new FormData(this),
         dataType: 'json',
@@ -170,7 +139,6 @@
         contentType: false,
         async: false,
         success: function(result) {
-          show_data();
           if (result.status == false) {
             toastr['error'](result.pesan);
           } else if (result.status == true) {
@@ -181,31 +149,26 @@
         }
       })
     });
-    $('#data').on('click', '#active', function() {
-      id_menu = $(this).data('id_menu');
+    $('#data').on('click', '#is_active', function() {
+      id = $(this).data('id_member');
       active = $(this).data('active');
       $.ajax({
-        url: '<?= site_url('menu/active') ?>',
-        type: 'post',
-        data: {
-          id: id_menu,
-          active: active
-        },
-        dataType: 'json',
-        success: function(data) {
-          show_data();
-          $('#myData').DataTable().ajax.reload();
-          if (data.active == 'true') {
-            toastr['success']('Menu Aktif')
-          } else {
-            toastr['error']('Menu Nonaktif')
-          }
-        }
-      })
+            url:'<?= site_url('member/changeActive'); ?>',
+            type:'post',
+            dataType:'json',
+            data:{
+              id_member:id,
+              is_active:((active == 1)?0:1),
+            },success:function(data){
+              if (result.status == false) {
+                toastr['error'](result.pesan);
+              } else if (result.status == true) {
+                toastr['success'](result.pesan);
+              }
+              $('#myData').DataTable().ajax.reload();
+            }
+      });
     });
-    $('#data').on('click', '.sub', function() {
-      id = $(this).data('id_menu');
-      $('#show_data').load('<?= site_url() ?>' + '/submenu/index/' + id);
-    });
+
   });
 </script>

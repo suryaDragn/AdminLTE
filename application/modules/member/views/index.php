@@ -15,7 +15,7 @@
           <div class="card-header">
             <h3 class="card-title">
               <i class="fas fa-edit"></i>
-              Menu Management
+              Member Management
             </h3>
             <br>
             <hr>
@@ -26,12 +26,12 @@
               <thead>
                 <tr>
                   <th width="5%">No</th>
-                  <th>Nama Menu</th>
-                  <th width="5%">Icon</th>
-                  <th width="10%">Url</th>
-                  <th width="10%">Order</th>
-                  <th width="5%">Aktif</th>
-                  <th width="10%">Submenu</th>
+                  <th>Nama Member</th>
+                  <th width="10%">Jenis Mobil</th>
+                  <th width="5%">Plat Nomor</th>
+                  <th width="10%">Alamat</th>
+                  <th width="5%">Nomor Telepon</th>
+                  <?= ($role == "1")?'<th width="10%">Aktif</th>':""  ?>
                   <th>Aksi</th>
                 </tr>
               </thead>

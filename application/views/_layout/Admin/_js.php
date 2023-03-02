@@ -22,26 +22,24 @@
       type: 'post',
       dataType: 'json',
       success: function(data) {
-        console.log(data);
         var menu = ''
         for (var i = 0; i < data.length; i++) {
           var sub = '';
-          var menu_href = data[0].url;
+          var menu_href = data[i].url;
           if(data[i].submenu.length > 0){
             for (var j = 0; j < data[i].submenu.length; j++) {
               submenu = '<li class="nav-item ml-2" data-url="' + data[i].submenu[j].url + '">' +
-              '<a href="' + data[i].submenu[j].url + '" class="nav-link">' +
+              '<a href="#' + data[i].submenu[j].url + '" class="nav-link">' +
               '<i class="' + data[i].submenu[j].icon + ' nav-icon"></i>' +
               '<p>' + data[i].submenu[j].title + '</p>' +
               '</a>' +
               '</li>';
               sub += submenu;
             }
-            menu_href = '#';
+            menu_href = '';
           }
-          console.log(menu_href);
           menu += '<li class="nav-item has-treeview">' +
-          '<a href="'+menu_href+'" class="nav-link">' +
+          '<a href="#'+menu_href+'" class="nav-link">' +
           '<i class="nav-icon ' + data[i].icon + '"></i>' +
           '<p>' +
           data[i].title ;
@@ -84,6 +82,31 @@
               $('#show_data').html(html);
             }
           })
+        });
+        $('.nav-item').on('click', 'a', function() {
+          link = $(this).attr('href');
+          link = link.substring(1,link.length);
+          if(link.length > 0){
+            $.ajax({
+              url: '<?= site_url() ?>' + link,
+              type: 'get',
+              success: function(data) {
+                $('#show_data').html(data);
+              },
+              error: function(status) {
+                let html = '<section class="content">' +
+                '<div class="d-flex justify-content-center align-items-center mt-20" id="mnsn">' +
+                '<h1 class="mr-3 pr-3 mt-20 align-top border-right inline-block align-content-center">' + status.status + '</h1>' +
+                '<div class="inline-block align-middle">' +
+                '<h2 class="font-weight-normal lead" id="desc">' + status.statusText + '</h2>' +
+                '</div>' +
+                '</div>' +
+                '</section>';
+                // console.log(status.status);
+                $('#show_data').html(html);
+              }
+            })
+          }
         });
       }
     });

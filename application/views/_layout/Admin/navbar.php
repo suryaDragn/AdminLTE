@@ -48,6 +48,9 @@
                 <?= $this->session->userdata('user') ?>
             </a>
             <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                <a href="<?= site_url('admin/changePassword') ?>" class="dropdown-item">
+                    <i class="fas fa-fw fa-sign-out-alt mr-2"></i> Change Password
+                </a>
                 <a href="<?= site_url('admin/logout') ?>" class="dropdown-item">
                     <i class="fas fa-fw fa-sign-out-alt mr-2"></i> Logout
                 </a>

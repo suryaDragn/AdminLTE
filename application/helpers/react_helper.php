@@ -20,4 +20,17 @@ if (!function_exists('element')) {
     $data['view'] = $ci->load->view($template, $data, true);
     $ci->load->view('_layout/admin/index.php', $data);
   }
+  function views($template, $data = null)
+  {
+    $ci = &get_instance();
+    $data['css'] = $ci->load->view('_layout/admin/_css.php', $data, TRUE);
+    $data['navbar'] = $ci->load->view('_layout/admin/navbar.php', $data, TRUE);
+    $data['sidebar'] = $ci->load->view('_layout/admin/sidebar.php', $data, TRUE);
+    $data['footer'] = $ci->load->view('_layout/admin/footer.php', $data, TRUE);
+    $data['js'] = $ci->load->view('_layout/admin/_js.php', $data, TRUE);
+    $data['coreJs'] = $ci->load->view($template['js'], $data, TRUE);
+    $data['coreModals'] = $ci->load->view($template['modals'], $data, TRUE);
+    $data['view'] = $ci->load->view($template['view'], $data, true);
+    $ci->load->view('_layout/admin/index.php', $data);
+  }
 }

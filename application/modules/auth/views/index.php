@@ -1,6 +1,6 @@
 <div class="login-box">
   <div class="login-logo">
-    <h1>React<b>more</b></h1>
+    <h1>Bengkel<b>In</b></h1>
   </div>
   <!-- /.login-logo -->
   <div class="card">

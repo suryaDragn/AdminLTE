@@ -91,4 +91,4 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 
-define('APP_NAME', 'React');
+define('APP_NAME', 'Bengkel-In');

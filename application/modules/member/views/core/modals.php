@@ -11,24 +11,25 @@
             <form id="form">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="title">Nama Menu</label>
-                        <input type="text" name="title" id="title" class="form-control form-control-sm" placeholder="Nama Menu" required>
+                        <label for="title">Nama Member</label>
+                        <input type="text" name="nama_member" id="nama_member" class="form-control form-control-sm" placeholder="Nama Member" required>
                     </div>
                     <div class="form-group">
-                        <label for="icon">Icon</label>
-                        <!-- <input type="text" class="form-control icp icp-auto" value="fa-anchor"> -->
+                        <label for="icon">Jenis Mobil</label>
+                        <input type="text" name="jenis_mobil" id="jenis_mobil" class="form-control icp icp-auto" placeholder="Masukan Jenis Mobil" required>
 
-                        <select name="icon" id="icon" class="form-control" required>
-                            <option value="">Pilih Icon</option>
-                            <?php foreach ($icons as $i) : ?>
-
-                                <option value="<?= $i->icon ?>"><?= $i->icon_name ?> </option>
-                            <?php endforeach; ?>
-                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="url">Url (Kosongi Jika tidak digunakan)</label>
-                        <input type="text" name="url" id="url" class="form-control form-control-sm" placeholder="Url" required>
+                        <label for="plat_nomor">Plat Nomor</label>
+                        <input type="text" name="plat_nomor" id="plat_nomor" class="form-control form-control-sm" placeholder="Masukan Plat Nomor Kendaraan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" name="alamat" id="alamat" class="form-control form-control-sm" placeholder="Masukan Alamat Member" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nomor_telepon">Nomor Telepon</label>
+                        <input type="text" name="nomor_telepon" id="nomor_telepon" class="form-control form-control-sm" placeholder="Masukan Nomor Telepon Member" required>
                     </div>
                     <div id="add">
                     </div>

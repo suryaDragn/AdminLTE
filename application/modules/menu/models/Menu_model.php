@@ -59,10 +59,12 @@ class Menu_model extends CI_Model
   public function tambah() {
     $title = htmlspecialchars($_POST['title']);
     $icon = htmlspecialchars($_POST['icon']);
+    $url = htmlspecialchars($_POST['url']);
     $hitung = count($this->db->get('user_menu')->result()) + 1;
     $data = [
       'title' => $title,
       'icon' => $icon,
+      'url' => $url,
       'is_active' => 1,
       'no_order' => $hitung
     ];
@@ -80,10 +82,12 @@ class Menu_model extends CI_Model
     $id = htmlspecialchars($_POST['id']);
     $title = htmlspecialchars($_POST['title']);
     $icon = htmlspecialchars($_POST['icon']);
+    $url = htmlspecialchars($_POST['url']);
 
     $data = [
       'title' => $title,
-      'icon' => $icon
+      'icon' => $icon,
+      'url' => $url,
     ];
 
     $this->db->where($this->id, $id);

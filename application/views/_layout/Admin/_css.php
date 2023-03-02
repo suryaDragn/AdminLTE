@@ -37,6 +37,8 @@
       $(".preloader").fadeOut();
     }, 1000);
     var page = window.location.hash.substr(1);
+    console.log('woyo');
+    console.log(page);
     if (page == "") page = "admin/dashboard";
     $('#show_data').load('<?= site_url() ?>' + '/' + page);
   });

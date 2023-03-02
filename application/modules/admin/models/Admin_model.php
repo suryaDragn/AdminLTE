@@ -13,6 +13,7 @@ class Admin_model extends CI_Model
     $db->order_by('user_menu.no_order', 'asc');
     $menu = $db->get()->result();
     foreach ($menu as $m) {
+      // print_r($m);
       $data[] = [
         'id_menu' => $m->id_menu,
         'title' => $m->title,
