@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Services_model extends CI_Model
+class Servicesdetail_model extends CI_Model
 {
   public $table;
   public $id;
@@ -8,11 +8,11 @@ class Services_model extends CI_Model
   public $column_search;
   public $order;
   function __construct() {
-    $this->table = 'services';
-    $this->id = 'id_service';
-    $this->column_order = array(null,'tanggal','nama_member', 'jenis_mobil', null, null, null, null);
-    $this->column_search = array('tanggal','nama_member','jenis_mobil','plat_nomor');
-    $this->order = array('id_service' => 'asc');
+    $this->table = 'service_detail';
+    $this->id = 'id_service_detail';
+    $this->column_order = array(null,'nama_barang','harga', 'jumlah', 'total_harga');
+    $this->column_search = array('nama_barang','harga', 'jumlah', 'total_harga');
+    $this->order = array('id_service_detail' => 'desc');
   }
   public function getRows($postData) {
     $this->_get_datatables_query($postData);
@@ -35,8 +35,8 @@ class Services_model extends CI_Model
   }
 
   private function _get_datatables_query($postData) {
-    $this->db->from($this->table." as s");
-    $this->db->join('member m','s.id_member = m.id_member');
+    $this->db->from($this->table);
+    $this->db->where('id_service',$postData['id_service']);
     $i = 0;
     foreach ($this->column_search as $item) {
       if ($postData['search']['value']) {
@@ -61,6 +61,7 @@ class Services_model extends CI_Model
   }
   public function tambah() {
     $data = $_POST;
+    // print_r($data);
     unset($data['aksi']);
     $this->db->insert($this->table, $data);
     $insert_id = $this->db->insert_id();

@@ -14,7 +14,7 @@
                     <input type="hidden" id="id_member" name="id_member">
                 <div class="form-group">
                         <label for="icon">Tanggal Service</label>
-                        <input type="date" name="tanggal" id="tanggal" class="form-control icp icp-auto" placeholder="Masukan tanggal" required>
+                        <input type="date" name="tanggal" id="tanggal" max="<?= date('Y-m-d'); ?>" class="form-control icp icp-auto" placeholder="Masukan tanggal" required>
                     </div>
                     <div class="form-group">
                         <label for="title">Nama Member</label>
@@ -46,39 +46,69 @@
                     <button type="submit" class="btn btn-primary" id="btn">Simpan</button>
                 </div>
             </form>
-            <form id="form_detail">
-                <div class="modal-body detail">
-                    <!-- <div class="card"> -->
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="title">Nama Barang</label>
-                                    <input type="text" name="nama_barang" id="nama_barang" class="form-control form-control-sm" placeholder="Nama Barang" required>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="title">Jumlah Barang</label>
-                                    <input type="text" name="jumlah_barang" id="jumlah_barang" class="form-control form-control-sm" placeholder="Jumlah Barang" required>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="title">Harga</label>
-                                    <input type="text" name="harga" id="harga" class="form-control form-control-sm" placeholder="Harga" required>
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="title">Simpan Data</label>
-                                    <input type="submit" class="form-control form-control-sm btn btn-primary" id="btnTmbh" value="Simpan">
-                                </div>
-                            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_detail" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Daftar Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label for="title">Nama Barang</label>
+                            <input type="text" name="nama_barang" id="nama_barang" class="form-control form-control-sm" placeholder="Nama Barang" required>
                         </div>
-                    <!-- </div> -->
-                    
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="title">Jumlah Barang</label>
+                            <input type="text" onkeyup="hitungTotal()" name="jumlah_barang" id="jumlah_barang" class="form-control form-control-sm" placeholder="Jumlah Barang" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="title">Harga</label>
+                            <input type="text" onkeyup="hitungTotal()" name="harga" id="harga" class="form-control form-control-sm" placeholder="Harga" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="title">Total Harga</label>
+                            <input type="text" disabled name="total_harga" id="total_harga" class="form-control form-control-sm" placeholder="Total Harga" required>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <label for="title">Simpan Data</label>
+                            <input type="submit" class="form-control form-control-sm btn btn-primary" id="btnTmbh" value="Simpan">
+                        </div>
+                    </div>
                 </div>
-            </form>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered table-sm dt-responsive nowrap" id="detailData" width="100%">
+                            <thead>
+                                <tr>
+                                <th width="5%">Aksi</th>
+                                <th width="15%">Nama Barang</th>
+                                <th width="10%">Jumlah Barang</th>
+                                <th width="10%">Harga Barang</th>
+                                <th width="5%">Total Harga Barang</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataDetail">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

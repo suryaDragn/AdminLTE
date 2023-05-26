@@ -91,8 +91,9 @@
       $('#aksi').val('tambah');
       $('#modal').modal('show');
       $('#tanggal').val('');
+      $('#tanggal').removeAttr('disabled');
     });
-    $('#data').on('click',
+    $('#myData').on('click',
       '.edit',
       function() {
         $('.modal-body .header').html(form);
@@ -101,20 +102,23 @@
         $('#add').html(aksi);
         $('#modal').find('h5').html('Edit')
         $('#modal').find('#btn').html('Edit')
-        id = $(this).data('id_member');
+        $('#tanggal').removeAttr('disabled');
+        id = $(this).data('id_service');
         $.ajax({
             url:'<?= site_url('services/getData'); ?>',
             type:'post',
             dataType:'json',
             data:{
-              id_member:id,
+              id_service:id,
             },success:function(data){
-              $('#id').val(data.id_member);
+              $('#id').val(data.id_service);
+              $('#id_service').val(data.id_service);
+              $('#id_member').val(data.id_member);
+              $('#tanggal').val(data.tanggal);
               $('#nama_member').val(data.nama_member);
               $('#jenis_mobil').val(data.jenis_mobil);
               $('#plat_nomor').val(data.plat_nomor);
               $('#alamat').val(data.alamat);
-              $('#nomor_telepon').val(data.nomor_telepon);
               $('#aksi').val('edit');
               $('#modal').modal('show');
             }
@@ -123,20 +127,29 @@
     $('#data').on('click',
       '.hapus',
       function() {
-        $('.modal-body .header').html(form);
-        $('.modal-body .detail').html('');
-        $('#tanggal').attr('disabled','disabled');
-        aksi = '<input type="hidden" name="aksi" id="aksi">' +
-        '<input type="hidden" name="id" id="id">' +
-        '<h3>Apakah Anda Yakin ?</h3>';
-        $('.modal-body .header').html(aksi);
-        $('#modal').find('h5').html('Hapus')
-        $('#modal').find('#btn').html('Hapus')
-        id = $(this).data('id_member');
-        $('#aksi').val('hapus');
-        $('#id').val(id);
-        $('#modal').modal('show');
+        id = $(this).data('id_service');
+        if(confirm("Apakah anda yakin menghapus transaksi ini?")){
+          $.ajax({
+            url:'<?= site_url('services/aksi'); ?>',
+            type:'post',
+            dataType:'json',
+            data:{
+              id:id,
+              id_service:'',
+              aksi:'hapus',
+            },success:function(data){
+              $('#myData').DataTable().ajax.reload();
+              if (result.status == false) {
+                toastr['error'](result.pesan);
+              } else if (result.status == true) {
+                toastr['success'](result.pesan);
+              }
+              $('#myData').DataTable().ajax.reload();
+            }
+          });
+        }
       });
+
     $('#form').submit(function(e) {
       id = $('#id_member').val();
       tgl = $('#tanggal').val();
@@ -162,11 +175,34 @@
           }
           $('#id_service').val(result.insert_id);
           $('#myData').DataTable().ajax.reload();
+          
+          getDetail(result.insert_id);
           // $('#modal').modal('hide');
         }
       })
     });
-    
+    function getDetail(id_service){
+      $('#modal_detail').modal('show');
+      $('#detailData').DataTable().destroy();
+      $('#detailData').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "order": [],
+      "ajax": {
+        "url": "<?= site_url('services/getDetail'); ?>",
+        "type": "POST",
+        "data":{
+          "id_service":id_service,
+        }
+      },
+      "columnDefs": [{
+
+        "targets": [0],
+        "orderable": false
+      }]
+
+    });
+    }
     $('#btnMember').on('click',function(){
       $('#modal_member').modal('show');
       $('#memberData').DataTable({
@@ -197,6 +233,7 @@
         },
         dataType: 'json',
         success: function(result) {
+          
           $('#id_member').val(id);
           $('#nama_member').val(result.nama_member);
           $('#jenis_mobil').val(result.jenis_mobil);
@@ -206,6 +243,46 @@
         }
       });
     });
+  
+  $('#btnTmbh').on('click',function(){
+    nb = $('#nama_barang').val();
+    jml = $('#jumlah_barang').val();
+    hrg = $('#harga').val();
+    thrg = $('#total_harga').val();
+    id_service = $('#id_service').val();
+    $.ajax({
+        url: '<?= site_url('services/tambahBarang') ?>',
+        type: 'post',
+        data: {
+          id_service:id_service,
+          nama_barang:nb,
+          jumlah_barang:jml,
+          harga:hrg,
+          total_harga:thrg,
+        },
+        dataType: 'json',
+        success: function(result) {
+          $('#detailData').DataTable().ajax.reload();
+          // getDetail($('#id_service').val());
+          if (result.status == false) {
+            toastr['error'](result.pesan);
+          } else if (result.status == true) {
+            $('#nama_barang').val('');
+            $('#jumlah_barang').val('');
+            $('#harga').val('');
+            $('#total_harga').val('');
+            toastr['success'](result.pesan);
+          }
+        }
+      });
+  });
 
   });
+  function hitungTotal(){
+    jml = $('#jumlah_barang').val();
+    hrg = $('#harga').val();
+    thrg = jml*hrg;
+    $('#total_harga').val(thrg);
+  }
+  
 </script>
