@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Member extends MY_Controller
+class Services extends MY_Controller
 {
 
 	public function __construct()
@@ -14,21 +14,21 @@ class Member extends MY_Controller
 			$this->db->from('user_access');
 			$this->db->join('user_menu', 'user_access.id_menu=user_menu.id_menu', 'inner');
 			$this->db->where('user_access.id_role', $this->session->userdata('role'));
-			$this->db->where('user_menu.url', 'member');
+			$this->db->where('user_menu.url', 'services');
 			$access = $this->db->get()->result();
 			if (!$access) {
 				redirect('page');
 			}
 		}
 		parent::__construct();
-		$this->load->model('member_model', 'model');
+		$this->load->model('services_model', 'model');
 	}
 
 	public function index()
 	{
 		// $sicon = $this->model->get_icon();
 		$data = [
-			'title' => 'Member',
+			'title' => 'Riwayat Servis',
 			'role' => $this->session->userdata('role'), 
 			// 'icons' => $sicon
 		];
@@ -40,22 +40,18 @@ class Member extends MY_Controller
 	}
     public function getList(){
         $data = array();
-		$menu = $this->model->getRows($_POST,$this->session->userdata('role'));
+		$menu = $this->model->getRows($_POST);
 		$i = $_POST['start'];
 		foreach ($menu as $d) {
 			$i++;
-			if ($d->is_active == 1) {
-				$active = '<input type="checkbox"  name="active" id="is_active"  class="form-control-sm" data-id_member="' . $d->id_member . '" data-active="' . $d->is_active . '" form-control-sm" checked>';
-			} else {
-				$active = '<input type="checkbox"  name="active" id="is_active"  class="form-control-sm" data-id_member="' . $d->id_member . '" data-active="' . $d->is_active . '" form-control-sm" >';
-			}
-			$btn_edit = '<button type="button" class="btn btn-success btn-xs edit" data-id_member="'.$d->id_member.'"><i class="fas fa-fw fa-pen"></i> Edit</button>';
+			$btn_detail = '<button type="button" class="btn btn-success btn-xs detail" data-id_member="'.$d->id_member.'"><i class="fas fa-fw fa-pen"></i> Detail</button>';
+            $btn_print = '<button type="button" class="btn btn-warning btn-xs print" data-id_member="'.$d->id_member.'"><i class="fas fa-fw fa-print"></i> Print</button>';
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_member="' . $d->id_member . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
-			if($this->session->userdata('role') == '1'){
-				$data[] = array($i, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon, $active, $btn_edit . ' ' . $btn_hapus);
-			}else{
-				$data[] = array($i, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon, $btn_edit . ' ' . $btn_hapus);
-			}
+            if($this->session->userdata('role') == '1'){
+				$data[] = array($i,date('d M Y',strtotime($d->tanggal)), $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $btn_detail .' '.$btn_print. ' ' . $btn_hapus);
+            }else{
+                $data[] = array($i,date('d M Y',strtotime($d->tanggal)), $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $btn_detail .' '.$btn_print);
+            }
 		}
 
 		$output = array(
@@ -87,26 +83,6 @@ class Member extends MY_Controller
 		$data = $this->model->changeActive();
 		echo json_encode($data);
 	}
-	public function getListMember(){
-        $data = array();
-		$menu = $this->model->getRows($_POST,$this->session->userdata('role'));
-		$i = $_POST['start'];
-		foreach ($menu as $d) {
-			$i++;
-			
-			$btn_pilih = '<button  id="pilihMember" class="btn btn-success btn-xs pilih"  data-id_member="' . $d->id_member . '">Pilih</button>';
-			$data[] = array($btn_pilih, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon);
-			
-		}
-
-		$output = array(
-			"draw" => $_POST['draw'],
-			"recordsTotal" => $this->model->countAll(),
-			"recordsFiltered" => $this->model->countFiltered($_POST,$this->session->userdata('role')),
-			"data" => $data,
-		);
-		echo json_encode($output);
-    }
 
 }
 ?>

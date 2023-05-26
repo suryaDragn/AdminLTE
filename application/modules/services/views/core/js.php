@@ -61,13 +61,15 @@
         }
       })
     }
-    const form = $('.modal-body').html();
+    const form = $('.modal-body .header').html();
+    const formDtl = $('.modal-body .detail').html();
+
     $('#myData').DataTable({
       "processing": true,
       "serverSide": true,
       "order": [],
       "ajax": {
-        "url": "<?= site_url('member/getList'); ?>",
+        "url": "<?= site_url('services/getList'); ?>",
         "type": "POST"
       },
       "columnDefs": [{
@@ -79,18 +81,21 @@
     });
 
     $('#tambah').click(function() {
-      $('.modal-body').html(form);
+      console.log(form);
+      $('.modal-body .header').html(form);
+      $('.modal-body .detail').html(formDtl);
       aksi = '<input type="hidden" name="aksi" id="aksi">';
       $('#add').html(aksi);
       $('#modal').find('h5').html('Tambah')
-      $('#modal').find('#btn').html('Tambah')
+      $('#modal').find('#btn').html('Simpan')
       $('#aksi').val('tambah');
       $('#modal').modal('show');
+      $('#tanggal').val('');
     });
     $('#data').on('click',
       '.edit',
       function() {
-        $('.modal-body').html(form);
+        $('.modal-body .header').html(form);
         aksi = '<input type="hidden" name="aksi" id="aksi">' +
         '<input type="hidden" name="id" id="id">';
         $('#add').html(aksi);
@@ -98,7 +103,7 @@
         $('#modal').find('#btn').html('Edit')
         id = $(this).data('id_member');
         $.ajax({
-            url:'<?= site_url('member/getData'); ?>',
+            url:'<?= site_url('services/getData'); ?>',
             type:'post',
             dataType:'json',
             data:{
@@ -118,11 +123,13 @@
     $('#data').on('click',
       '.hapus',
       function() {
-        $('.modal-body').html(form);
+        $('.modal-body .header').html(form);
+        $('.modal-body .detail').html('');
+        $('#tanggal').attr('disabled','disabled');
         aksi = '<input type="hidden" name="aksi" id="aksi">' +
         '<input type="hidden" name="id" id="id">' +
         '<h3>Apakah Anda Yakin ?</h3>';
-        $('.modal-body').html(aksi);
+        $('.modal-body .header').html(aksi);
         $('#modal').find('h5').html('Hapus')
         $('#modal').find('#btn').html('Hapus')
         id = $(this).data('id_member');
@@ -131,9 +138,16 @@
         $('#modal').modal('show');
       });
     $('#form').submit(function(e) {
+      id = $('#id_member').val();
+      tgl = $('#tanggal').val();
+      if(id == '' | tgl == ''){
+        alert('Tolong Lengkapi Data. Lalu Simpan');
+        return false;
+      }
+
       e.preventDefault();
       $.ajax({
-        url: '<?= site_url('member/aksi') ?>',
+        url: '<?= site_url('services/aksi') ?>',
         type: 'post',
         data: new FormData(this),
         dataType: 'json',
@@ -146,29 +160,50 @@
           } else if (result.status == true) {
             toastr['success'](result.pesan);
           }
+          $('#id_service').val(result.insert_id);
           $('#myData').DataTable().ajax.reload();
-          $('#modal').modal('hide');
+          // $('#modal').modal('hide');
         }
       })
     });
-    $('#data').on('click', '#is_active', function() {
+    
+    $('#btnMember').on('click',function(){
+      $('#modal_member').modal('show');
+      $('#memberData').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "order": [],
+      "ajax": {
+        "url": "<?= site_url('member/getListMember'); ?>",
+        "type": "POST"
+      },
+      "columnDefs": [{
+
+        "targets": [0],
+        "orderable": false
+      }]
+
+    });
+    });
+
+    $('#dataMember').on('click','.pilih',function(){
+      console.log('woyo');
       id = $(this).data('id_member');
-      active = $(this).data('active');
       $.ajax({
-            url:'<?= site_url('member/changeActive'); ?>',
-            type:'post',
-            dataType:'json',
-            data:{
-              id_member:id,
-              is_active:((active == 1)?0:1),
-            },success:function(data){
-              if (result.status == false) {
-                toastr['error'](result.pesan);
-              } else if (result.status == true) {
-                toastr['success'](result.pesan);
-              }
-              $('#myData').DataTable().ajax.reload();
-            }
+        url: '<?= site_url('member/getData') ?>',
+        type: 'post',
+        data: {
+          id_member:id,
+        },
+        dataType: 'json',
+        success: function(result) {
+          $('#id_member').val(id);
+          $('#nama_member').val(result.nama_member);
+          $('#jenis_mobil').val(result.jenis_mobil);
+          $('#plat_nomor').val(result.plat_nomor);
+          $('#alamat').val(result.alamat);
+          $('#modal_member').modal('hide');
+        }
       });
     });
 

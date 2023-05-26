@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Member_model extends CI_Model
+class Services_model extends CI_Model
 {
   public $table;
   public $id;
@@ -8,14 +8,14 @@ class Member_model extends CI_Model
   public $column_search;
   public $order;
   function __construct() {
-    $this->table = 'member';
-    $this->id = 'id_member';
-    $this->column_order = array(null, 'nama_member', 'jenis_mobil', null, null, null, null);
-    $this->column_search = array('nama_member','jenis_mobil','nomor_telepon');
-    $this->order = array('id_member' => 'asc');
+    $this->table = 'services';
+    $this->id = 'id_service';
+    $this->column_order = array(null,'tanggal','nama_member', 'jenis_mobil', null, null, null, null);
+    $this->column_search = array('tanggal','nama_member','jenis_mobil','plat_nomor');
+    $this->order = array('id_service' => 'asc');
   }
-  public function getRows($postData,$role) {
-    $this->_get_datatables_query($postData,$role);
+  public function getRows($postData) {
+    $this->_get_datatables_query($postData);
     if ($postData['length'] != -1) {
       $this->db->limit($postData['length'], $postData['start']);
     }
@@ -28,17 +28,15 @@ class Member_model extends CI_Model
     return $this->db->count_all_results();
   }
 
-  public function countFiltered($postData,$role) {
-    $this->_get_datatables_query($postData,$role);
+  public function countFiltered($postData) {
+    $this->_get_datatables_query($postData);
     $query = $this->db->get();
     return $query->num_rows();
   }
 
-  private function _get_datatables_query($postData,$role) {
-    $this->db->from($this->table);
-    if($role != 1){
-      $this->db->where('is_active',1);
-    }
+  private function _get_datatables_query($postData) {
+    $this->db->from($this->table." as s");
+    $this->db->join('member m','s.id_member = m.id_member');
     $i = 0;
     foreach ($this->column_search as $item) {
       if ($postData['search']['value']) {
@@ -63,17 +61,11 @@ class Member_model extends CI_Model
   }
   public function tambah() {
     $data = $_POST;
-    $data['is_active'] = 1;
     unset($data['aksi']);
-    $cek = $this->db->get_where($this->table, ['plat_nomor' => $data['plat_nomor']])->row();
-    if ($cek) {
-          $hasil['status'] = false;
-          $hasil['pesan'] = "Plat Nomor sudah Terpakai";
-          return $hasil;
-    }
     $this->db->insert($this->table, $data);
-
+    $insert_id = $this->db->insert_id();
     $data = [
+      'insert_id' => $insert_id,
       'status' => true,
       'pesan' => "Data Menu Berhasil Ditambah"
     ];
