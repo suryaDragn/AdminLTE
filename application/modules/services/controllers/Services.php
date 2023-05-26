@@ -97,6 +97,7 @@ class Services extends MY_Controller
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_service_detail="' . $d->id_service_detail . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
 			$data[] = array($btn_hapus, $d->nama_barang, $d->jumlah_barang,$d->harga, $d->total_harga);
 
+
 		}
 
 		$output = array(
@@ -111,6 +112,9 @@ class Services extends MY_Controller
 		$data = $this->detail->tambah();
 		echo json_encode($data);
 	}
-
+	public function hapusBarang(){
+		$data = $this->detail->hapus();
+		echo json_encode($data);
+	}
 }
 ?>

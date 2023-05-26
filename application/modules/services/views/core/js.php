@@ -92,6 +92,7 @@
       $('#modal').modal('show');
       $('#tanggal').val('');
       $('#tanggal').removeAttr('disabled');
+      $('#btnMember').removeAttr('disabled');
     });
     $('#myData').on('click',
       '.edit',
@@ -99,10 +100,19 @@
         $('.modal-body .header').html(form);
         aksi = '<input type="hidden" name="aksi" id="aksi">' +
         '<input type="hidden" name="id" id="id">';
+        $('#btnMember').attr('disabled','disabled');
         $('#add').html(aksi);
         $('#modal').find('h5').html('Edit')
         $('#modal').find('#btn').html('Edit')
-        $('#tanggal').removeAttr('disabled');
+        user = "<?=$this->session->userdata('role') ?>";
+        console.log(user);
+        if(user == "1"){
+          $('#tanggal').removeAttr('disabled');
+          // $('#btnMember').removeAttr('disabled');
+        }else{
+          $('#tanggal').attr('disabled','disabled');
+          $('#btnMember').attr('disabled','disabled');
+        }
         id = $(this).data('id_service');
         $.ajax({
             url:'<?= site_url('services/getData'); ?>',
@@ -277,6 +287,30 @@
       });
   });
 
+  $('#dataDetail').on('click',
+      '.hapus',
+      function() {
+        id = $(this).data('id_service_detail');
+        if(confirm("Apakah anda yakin menghapus barang ini?")){
+          $.ajax({
+            url:'<?= site_url('services/hapusBarang'); ?>',
+            type:'post',
+            dataType:'json',
+            data:{
+              id:id,
+              aksi:'hapus',
+            },success:function(data){
+              $('#detailData').DataTable().ajax.reload();
+              if (result.status == false) {
+                toastr['error'](result.pesan);
+              } else if (result.status == true) {
+                toastr['success'](result.pesan);
+              }
+              $('#detailData').DataTable().ajax.reload();
+            }
+          });
+        }
+      });
   });
   function hitungTotal(){
     jml = $('#jumlah_barang').val();

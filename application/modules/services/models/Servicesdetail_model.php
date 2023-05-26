@@ -68,7 +68,7 @@ class Servicesdetail_model extends CI_Model
     $data = [
       'insert_id' => $insert_id,
       'status' => true,
-      'pesan' => "Data Menu Berhasil Ditambah"
+      'pesan' => "Data Barang Berhasil Ditambah"
     ];
 
     return $data;
@@ -89,7 +89,7 @@ class Servicesdetail_model extends CI_Model
     $data = [
       'insert_id' => $id,
       'status' => true,
-      'pesan' => "Data Menu Berhasil diubah"
+      'pesan' => "Data Barang Berhasil diubah"
     ];
 
     return $data;
@@ -102,7 +102,7 @@ class Servicesdetail_model extends CI_Model
 
     $data = [
       'status' => true,
-      'pesan' => "Data Menu Berhasil Dihapus"
+      'pesan' => "Data Barang Berhasil Dihapus"
     ];
 
     return $data;
@@ -113,7 +113,7 @@ class Servicesdetail_model extends CI_Model
     $this->db->update($this->table,['is_active' => $data['is_active']]);
     $data = [
       'status' => true,
-      'pesan' => "Data Menu Berhasil ".($data['is_active'] == 1)?"diaktifkan":"dinonaktifkan",
+      'pesan' => "Data Barang Berhasil ".($data['is_active'] == 1)?"diaktifkan":"dinonaktifkan",
     ];
 
     return $data;
