@@ -112,6 +112,56 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalDetailTransaksi" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td style="width:150px">Tanggal Service</td>
+                        <td id="dbtanggal"></td>
+                    </tr>
+                    <tr>
+                        <td>Nama Member</td>
+                        <td id="dbnama_member"></td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Mobil</td>
+                        <td id="dbjenis_mobil"></td>
+                    </tr>
+                    <tr>
+                        <td>Plat Nomor</td>
+                        <td id="dbplat_nomor"></td>
+                    </tr>
+                    <tr>
+                        <td>Alamat</td>
+                        <td id="dbalamat"></td>
+                    </tr>
+                </table>
+                <div class="card-body pad table-responsive">
+                    <table class="table table-bordered table-sm dt-responsive nowrap" id="DetailBarangData" width="100%">
+                    <thead>
+                    <tr>
+                        <th width="15%">Nama Barang</th>
+                        <th width="10%">Jumlah Barang</th>
+                        <th width="10%">Harga Barang</th>
+                        <th width="5%">Total Harga Barang</th>
+                    </tr>
+                    </thead>
+                    <tbody id="dataDetailBarang">
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modal_member" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">

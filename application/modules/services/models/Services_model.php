@@ -125,4 +125,5 @@ class Services_model extends CI_Model
     $data = $this->db->get()->row();
     return $data;
   }
+  
 }?>

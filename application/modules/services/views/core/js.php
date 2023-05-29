@@ -148,7 +148,7 @@
               id_service:'',
               aksi:'hapus',
             },success:function(data){
-              $('#myData').DataTable().ajax.reload();
+              
               if (result.status == false) {
                 toastr['error'](result.pesan);
               } else if (result.status == true) {
@@ -158,6 +158,33 @@
             }
           });
         }
+      });
+      const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      $('#data').on('click',
+      '.detail',
+      function() {
+        id = $(this).data('id_service');
+          $.ajax({
+          url: '<?= site_url('services/getData') ?>',
+          type: 'post',
+          data: {
+            id_service:id,
+          },
+          dataType: 'json',
+          success: function(result) {
+            $('#modalDetailTransaksi').modal('show');
+            tgl = new Date(result.tanggal);
+            tanggal = tgl.getDate()+" "+month[tgl.getMonth()]+" "+tgl.getFullYear();
+            $('#dbtanggal').html(tanggal);
+            $('#dbnama_member').html(result.nama_member);
+            $('#dbjenis_mobil').html(result.jenis_mobil);
+            $('#dbplat_nomor').html(result.plat_nomor);
+            $('#dbalamat').html(result.alamat);
+            getDetail('','DetailBarangData',id,1)
+
+            // $('#modal_member').modal('hide');
+          }
+        });
       });
 
     $('#form').submit(function(e) {
@@ -186,15 +213,20 @@
           $('#id_service').val(result.insert_id);
           $('#myData').DataTable().ajax.reload();
           
-          getDetail(result.insert_id);
+          getDetail('modal_detail','detailData',result.insert_id);
           // $('#modal').modal('hide');
         }
       })
     });
-    function getDetail(id_service){
-      $('#modal_detail').modal('show');
-      $('#detailData').DataTable().destroy();
-      $('#detailData').DataTable({
+    function getDetail(modal,table,id_service,$num){
+      if($num == null){
+        $num = 0;
+      }
+      if(modal != ''){
+        $('#'+modal).modal('show');
+      }
+      $('#'+table).DataTable().destroy();
+      $('#'+table).DataTable({
       "processing": true,
       "serverSide": true,
       "order": [],
@@ -203,6 +235,7 @@
         "type": "POST",
         "data":{
           "id_service":id_service,
+          'display':$num,
         }
       },
       "columnDefs": [{
@@ -255,6 +288,7 @@
     });
   
   $('#btnTmbh').on('click',function(){
+    $('#myData').DataTable().ajax.reload();
     nb = $('#nama_barang').val();
     jml = $('#jumlah_barang').val();
     hrg = $('#harga').val();
@@ -273,7 +307,6 @@
         dataType: 'json',
         success: function(result) {
           $('#detailData').DataTable().ajax.reload();
-          // getDetail($('#id_service').val());
           if (result.status == false) {
             toastr['error'](result.pesan);
           } else if (result.status == true) {

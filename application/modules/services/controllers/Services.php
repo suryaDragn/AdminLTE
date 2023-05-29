@@ -46,7 +46,7 @@ class Services extends MY_Controller
 		foreach ($menu as $d) {
 			$i++;
 			$btn_detail = '<button type="button" class="btn btn-success btn-xs detail" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-file"></i> Detail</button>';
-            $btn_print = '<button type="button" class="btn btn-primary btn-xs print" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-print"></i> Print</button>';
+            $btn_print = '<a type="button" class="btn btn-primary btn-xs print" target="_blank" href="'.base_url('/services/print?id=').base64_encode($d->id_service).'" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-print"></i> Print</a>';
             $btn_edit = '<button type="button" class="btn btn-warning btn-xs edit" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-pen"></i> Edit</button>';
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_service="' . $d->id_service . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
             if($this->session->userdata('role') == '1'){
@@ -66,6 +66,10 @@ class Services extends MY_Controller
     }
 	public function getData(){
 		$data = $this->model->getData();
+		echo json_encode($data);
+	}
+	public function getBarang(){
+		$data = $this->detail->getData();
 		echo json_encode($data);
 	}
 	public function aksi()
@@ -95,8 +99,11 @@ class Services extends MY_Controller
 		foreach ($menu as $d) {
 			$i++;
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_service_detail="' . $d->id_service_detail . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
-			$data[] = array($btn_hapus, $d->nama_barang, $d->jumlah_barang,$d->harga, $d->total_harga);
-
+			if($_POST['display'] == 1){
+				$data[] = array($d->nama_barang, $d->jumlah_barang,$d->harga, $d->total_harga);
+			}else{
+				$data[] = array($btn_hapus, $d->nama_barang, $d->jumlah_barang,$d->harga, $d->total_harga);
+			}
 
 		}
 
@@ -115,6 +122,17 @@ class Services extends MY_Controller
 	public function hapusBarang(){
 		$data = $this->detail->hapus();
 		echo json_encode($data);
+	}
+	public function print(){
+		$id = $_GET['id'];
+		$id = base64_decode($id);
+		$_POST['id_service'] = $id;
+		$data = $this->model->getData();
+		// print_r('<pre>');
+		$data->tanggal = date('d M Y',strtotime($data->tanggal));
+		$data->detail_barang = $this->detail->getData();
+		// print_r($data);
+		$this->load->view('print/cetaknota',$data);
 	}
 }
 ?>

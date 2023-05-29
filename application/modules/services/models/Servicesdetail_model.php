@@ -120,10 +120,9 @@ class Servicesdetail_model extends CI_Model
   }
   public function getData(){
     $this->db->select('*');
-    $this->db->from($this->table." as s");
-    $this->db->join('member m','s.id_member = m.id_member');
-    $this->db->where($this->id,$_POST['id_service']);
-    $data = $this->db->get()->row();
+    $this->db->from($this->table." as sd");
+    $this->db->where('id_service',$_POST['id_service']);
+    $data = $this->db->get()->result();
     return $data;
   }
 }?>
