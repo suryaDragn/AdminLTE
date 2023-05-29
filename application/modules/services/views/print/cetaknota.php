@@ -6,9 +6,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-
-  <link rel="stylesheet" href="<?php echo base_url().'assets/bootstrap/css/bootstrap.min.css' ?>">
-  <!-- <link rel="stylesheet" href="<?php echo base_url().'assets/paper.css' ?>"> -->
+  <link rel="stylesheet" href="<?= PATH_ASSETS ?>plugins/fontawesome-free/css/all.min.css">
+  
   <style>
     .float {
       /*float: right;*/
@@ -25,7 +24,7 @@
     }
     
 
-    @page { margin: 0 }
+    @page { margin: 0;size:A5 }
     body { margin: 0 }
     .sheet {
       margin: 0;
@@ -61,21 +60,21 @@
     }
 
     /** Fix for Chrome issue #273306 **/
-    @media print {
+    /* @media print {
                body.A3.landscape { width: 420mm }
       body.A3, body.A4.landscape { width: 297mm }
       body.A4, body.A5.landscape { width: 210mm }
       body.A5                    { width: 148mm }
 
-    }
+    } */
 
-    @media all {
+    /* @media all {
     .page-break { display: none; }
-    }
+    } */
 
-    @media print {
+    /* @media print {
     .page-break { display: block; page-break-before: always; }
-    }
+    } */
 
     .col-print-1 {width:8%;  float:left;}
     .col-print-2 {width:16%; float:left;}
@@ -99,11 +98,14 @@
       padding: 1px;
       font-size: 14px;
     }
+    table{
+        border-collapse: collapse;
+    }
   </style>
 
 </head>
 <body class="A5" >
-<section class="sheet padding-5mm">
+<section class="sheet padding-10mm">
    <div class="row">
        <div class="col-print-6">
         <span><?= (!empty($ss_settings->icon))?'<img style="width:80px;" src="'.PATH_ASSETS.'img/pic/'. $ss_settings->icon.'" alt="">':"LOGO" ;?></span>  
@@ -210,8 +212,6 @@
         <span style="font-weight: bold;">Harmat Kami,</span>
     </div>
    </div>
-
-   
    </section>
 </body>
 </html>

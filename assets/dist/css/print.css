@@ -1,0 +1,67 @@
+/* Enhancement for printing */
+
+@media print {
+
+    /* added */ 
+   body * { float: none !important; } 
+  
+  /* original code  */
+    .no-print {
+      display: none;
+    }
+  
+    .left-side,
+    .header,
+    .content-header {
+      display: none;
+    }
+  
+    .right-side {
+      margin: 0;
+    }
+  
+  
+    /* for components */ 
+  
+    /* Added custom code to prevent page-break in box */ 
+     .box {
+     display: inline-block; 
+     page-break-inside: avoid !important;
+     page-break-before: auto; 
+    }
+  
+  /* original code */   
+    .callout {
+     margin: 0 0 20px 0;
+     padding: 1px 30px 1px 5px;
+     border-left: 2px solid #eee;
+    } 
+  
+    .invoice {
+      width: 100%;
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .invoice-col {
+      float: left;
+      width: 33.3333333%;
+    }
+  
+    .table-responsive {
+      overflow: auto;
+    }
+  
+    .table-responsive > .table tr th,
+    .table-responsive > .table tr td {
+      white-space: normal!important;
+    }
+  
+  
+  
+  
+  
+  }
+  
+  /* End of media print */

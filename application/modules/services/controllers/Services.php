@@ -128,13 +128,10 @@ class Services extends MY_Controller
 		$id = base64_decode($id);
 		$_POST['id_service'] = $id;
 		$data = $this->model->getData();
-		// print_r('<pre>');
 		$data->tanggal = date('d M Y',strtotime($data->tanggal));
 		$data->detail_barang = $this->detail->getData();
-		// print_r($data);
 		$data->title = "Cetak Nota";
 		$data->ss_settings = $this->db->get_where('system_settings', ['id' => 1])->row();
-		$this->load->view('_layout/admin/_css.php', $data);
 		$this->load->view('print/cetaknota',$data);
 	}
 }
