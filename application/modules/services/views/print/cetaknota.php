@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  window.print();
+//   window.print();
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +106,7 @@
 <section class="sheet padding-5mm">
    <div class="row">
        <div class="col-print-6">
-        <!-- <img style="width: 65%;" src="" alt=""> -->LOGO
+        <span><?= (!empty($ss_settings->icon))?'<img style="width:80px;" src="'.PATH_ASSETS.'img/pic/'. $ss_settings->icon.'" alt="">':"LOGO" ;?></span>  
        </div>
     
        <div class="col-print-6">
@@ -135,15 +135,15 @@
    </div>
    <div class="row">
         <div class="col-print-6">
-            <br/>
-            <!-- space -->
+            <label>== GAGAKSIPAT NGEMPLAK BOYOLALI ==</label><br/>
+            <label><i class="fas fa-fw fa-phone"></i>0856 9240 0481</label> 
         </div>
         <div class="col-print-6">
             <table>
                 <tr>
                     <td>NOPOL</td>
                     <td style="padding-left: 15px;">:</td>
-                    <td style="font-weight: normal;text-decoration: underline;">&nbsp;<?= $plat_nomor ?></td>
+                    <td style="text-decoration: underline;">&nbsp;<?= $plat_nomor ?></td>
                 </tr>
             </table>
         </div>
@@ -152,9 +152,9 @@
    <div class="col-print-12" style="margin-top: 10px; margin-bottom: 10px;">
      <table border="1" style="width: 100%" class="tb_primary">
        <tr>
-         <td style="width:10px;">NO</td>
-         <td style="width:15px;">BANYAKNYA</td>
-         <td style="width:100px;">NAMA BARANG</td>
+         <td style="width:50px;">NO</td>
+         <td style="width:120px;">BANYAKNYA</td>
+         <td style="width:130px;">NAMA BARANG</td>
          <td>HARGA</td>
          <td>TOTAL HARGA</td>
        </tr>
@@ -204,10 +204,10 @@
             <br/>
     </div>
     <div class="col-print-5">
-        <span>Tanda Terima,</span>
+        <span style="font-weight: bold;">Tanda Terima,</span>
     </div>
     <div class="col-print-5">
-        <span>Harmat Kami,</span>
+        <span style="font-weight: bold;">Harmat Kami,</span>
     </div>
    </div>
 

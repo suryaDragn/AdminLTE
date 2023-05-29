@@ -6,11 +6,11 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-sm-inline-block">
-            <a href="<?= base_url() ?>home" class="nav-link">Home</a>
+            <a href="<?= base_url() ?>admin" class="nav-link">Home</a>
         </li>
-        <li class="nav-item d-sm-inline-block">
+        <!-- <li class="nav-item d-sm-inline-block">
             <a href="<?= base_url() ?>home#page8" class="nav-link">Contact</a>
-        </li>
+        </li> -->
     </ul>
 
     <!-- SEARCH FORM -->
