@@ -41,5 +41,6 @@
         </div>
       </div>
     </div>
+    <div id="printView">woyo</div>
   </div>
 </section>

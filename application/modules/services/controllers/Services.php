@@ -47,6 +47,7 @@ class Services extends MY_Controller
 			$i++;
 			$btn_detail = '<button type="button" class="btn btn-success btn-xs detail" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-file"></i> Detail</button>';
             $btn_print = '<a type="button" class="btn btn-primary btn-xs print" target="_blank" href="'.base_url('/services/print?id=').base64_encode($d->id_service).'" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-print"></i> Print</a>';
+            // $btn_print = '<button type="button" class="btn btn-primary btn-xs print" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-print"></i> Print</button>';
             $btn_edit = '<button type="button" class="btn btn-warning btn-xs edit" data-id_service="'.$d->id_service.'"><i class="fas fa-fw fa-pen"></i> Edit</button>';
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_service="' . $d->id_service . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
             if($this->session->userdata('role') == '1'){
@@ -132,7 +133,12 @@ class Services extends MY_Controller
 		$data->detail_barang = $this->detail->getData();
 		$data->title = "Cetak Nota";
 		$data->ss_settings = $this->db->get_where('system_settings', ['id' => 1])->row();
-		$this->load->view('print/cetaknota',$data);
+		return $this->load->view('print/cetaknota',$data);
+		 
+	}
+	public function getPrint(){
+		$view = $this->print();
+		echo json_encode($view);
 	}
 }
 ?>

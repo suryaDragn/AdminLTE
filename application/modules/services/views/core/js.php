@@ -344,6 +344,22 @@
           });
         }
       });
+      $('#myData').on('click','.print',function(){
+        id = $(this).data('id_service');
+        console.log(id);
+        $.ajax({
+            url: '<?= site_url('services/getPrint') ?>',
+            type: 'get',
+            data: {
+              id:btoa(id),
+            },
+            dataType: 'json',
+            success: function(result) {
+              $('#printView').html(result);
+            }
+        });
+        // $('#printView').html();
+      });
   });
   function hitungTotal(){
     jml = $('#jumlah_barang').val();

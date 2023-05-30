@@ -15,9 +15,10 @@
           <div class="card-body">
             <div class="d-flex">
               <p class="d-flex flex-column" style="color:red">
-                <span class="text-bold text-lg">BANARAN AUTO SERVICE</span>
+              <?= (!empty($ss_settings->icon))?'<img style="width:100%;" src="'.PATH_ASSETS.'img/pic/'. $ss_settings->icon.'" alt="">':'<span class="text-bold text-lg">BANARAN AUTO SERVICE</span>
                 <span>= GAGAKSIPAT NGEMPLAK BOYOLALI =</span>
-                <span><i class="fas fa-fw fa-phone"></i>0856 9240 0481</span>
+                <span><i class="fas fa-fw fa-phone"></i>0856 9240 0481</span>' ;?>
+                
               </p>
             </div>
           </div>

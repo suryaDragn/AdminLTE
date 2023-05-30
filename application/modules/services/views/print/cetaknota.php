@@ -1,5 +1,6 @@
 <script type="text/javascript">
   window.print();
+  // window.close();
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,25 +109,32 @@
 <section class="sheet padding-10mm">
    <div class="row">
        <div class="col-print-6">
-        <span><?= (!empty($ss_settings->icon))?'<img style="width:80px;" src="'.PATH_ASSETS.'img/pic/'. $ss_settings->icon.'" alt="">':"LOGO" ;?></span>  
+        <span><?= (!empty($ss_settings->icon))?'<img style="width:230px;" src="'.PATH_ASSETS.'img/pic/'. $ss_settings->icon.'" alt="">':"LOGO" ;?></span>  
        </div>
     
        <div class="col-print-6">
           <table>
               <tr>
-                <td>Nama</td>
-                <td style="padding-left: 15px;">:</td>
-                <td style="font-weight: normal;">&nbsp;<?= $nama_member; ?></td>
+                  <td>Nama</td>
+                  <td style="padding-left: 15px;">:</td>
+                  <td style="font-weight: normal;">&nbsp;<?= $nama_member; ?></td>
               </tr>
               <tr>
-                <td colspan="3" style="color:red"><hr/></td>
+                  <td colspan="3" style="color:red"><hr/></td>
               </tr>
-             <tr>
-               <td>Tanggal</td>
-               <td style="padding-left: 15px;">:</td>
-               <td style="font-weight: normal;">&nbsp;<?= $tanggal ?></td>
-             </tr>
-          
+              <tr>
+                  <td>Tanggal</td>
+                  <td style="padding-left: 15px;">:</td>
+                  <td style="font-weight: normal;">&nbsp;<?= $tanggal ?></td>
+              </tr>
+              <tr>
+                <td colspan="3"><br/></td>
+              </tr>
+              <tr>
+                  <td>NOPOL</td>
+                  <td style="padding-left: 15px;">:</td>
+                  <td style="text-decoration: underline;">&nbsp;<?= $plat_nomor ?></td>
+              </tr>
            </table>
        </div>
    </div>
@@ -134,21 +142,6 @@
     <div class="col-print-12">
         <br/>
     </div>
-   </div>
-   <div class="row">
-        <div class="col-print-6">
-            <label>== GAGAKSIPAT NGEMPLAK BOYOLALI ==</label><br/>
-            <label><i class="fas fa-fw fa-phone"></i>0856 9240 0481</label> 
-        </div>
-        <div class="col-print-6">
-            <table>
-                <tr>
-                    <td>NOPOL</td>
-                    <td style="padding-left: 15px;">:</td>
-                    <td style="text-decoration: underline;">&nbsp;<?= $plat_nomor ?></td>
-                </tr>
-            </table>
-        </div>
    </div>
 
    <div class="col-print-12" style="margin-top: 10px; margin-bottom: 10px;">
