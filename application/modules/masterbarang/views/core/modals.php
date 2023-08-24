@@ -11,25 +11,20 @@
             <form id="form">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="title">Nama Menu</label>
-                        <input type="text" name="title" id="title" class="form-control form-control-sm" placeholder="Nama Menu" required>
+                        <label for="title">Kode Barang</label>
+                        <input type="text" name="kode_barang" id="kode_barang" class="form-control form-control-sm" placeholder="Masukan Kode Barang" required>
                     </div>
                     <div class="form-group">
-                        <label for="icon">Icon</label>
-                        <!-- <input type="text" class="form-control icp icp-auto" value="fa-anchor"> -->
+                        <label for="icon">Nama Barang</label>
+                        <input type="text" name="nama_barang" id="nama_barang" class="form-control icp icp-auto" placeholder="Masukan Nama Barang" required>
 
-                        <select name="icon" id="icon" class="form-control" required>
-                            <option value="">Pilih Icon</option>
-                            <?php foreach ($icons as $i) : ?>
-
-                                <option value="<?= $i->icon ?>"><?= $i->icon_name ?> </option>
-                            <?php endforeach; ?>
-                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="url">Url (Kosongi Jika tidak digunakan)</label>
-                        <input type="text" name="url" id="url" class="form-control form-control-sm" placeholder="Url">
+                        <label for="icon">Harga Barang</label>
+                        <input type="text" name="harga" id="harga" class="form-control icp icp-auto" placeholder="Masukan Harga Barang" required>
+
                     </div>
+                    
                     <div id="add">
                     </div>
                 </div>

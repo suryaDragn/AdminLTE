@@ -124,6 +124,8 @@
 <script src="<?= PATH_ASSETS ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
 <script src="<?= PATH_ASSETS ?>plugins/chart.js/Chart.min.js"></script>
+<!-- Select2 -->
+<script src="<?= PATH_ASSETS ?>plugins/select2/js/select2.full.min.js"></script>
 <!-- Alert-->
 <script src="<?= PATH_ASSETS ?>plugins/toastr/toastr.min.js"></script>
 <script src="<?= PATH_ASSETS ?>plugins/sweetalert2/sweetalert2.min.js"></script>

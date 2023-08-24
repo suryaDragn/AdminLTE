@@ -30,6 +30,8 @@
 <script src="<?= PATH_ASSETS ?>plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- 引入vConsole的JS库 -->
 <script src="<?= PATH_ASSETS ?>dist/vconsole.min.js"></script>
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?= PATH_ASSETS ?>plugins/select2/css/select2.css">
 
 <script>
   $(document).ready(function() {
