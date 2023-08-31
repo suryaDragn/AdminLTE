@@ -286,9 +286,30 @@
         }
       });
     });
+    $('#dataBarang').on('click','.pilihStok',function(){
+      console.log('woyo');
+      id = $(this).data('id_stok');
+      $.ajax({
+        url: '<?= site_url('services/getDataBarang') ?>',
+        type: 'post',
+        data: {
+          id_barang:id,
+        },
+        dataType: 'json',
+        success: function(result) {
+          $('#id_barang').val(id);
+          $('#stok').val(result.stok_akhir);
+          $('#kode_barang').val(result.kode_barang);
+          $('#nama_barang').val(result.nama_barang);
+          $('#harga').val(result.harga);
+          $('#modal_barang').modal('hide');
+        }
+      });
+    });
   
   $('#btnTmbh').on('click',function(){
     $('#myData').DataTable().ajax.reload();
+    id_barang = $('#id_barang').val();
     nb = $('#nama_barang').val();
     jml = $('#jumlah_barang').val();
     hrg = $('#harga').val();
@@ -298,6 +319,7 @@
         url: '<?= site_url('services/tambahBarang') ?>',
         type: 'post',
         data: {
+          id_barang:id_barang,
           id_service:id_service,
           nama_barang:nb,
           jumlah_barang:jml,
@@ -310,6 +332,9 @@
           if (result.status == false) {
             toastr['error'](result.pesan);
           } else if (result.status == true) {
+            $('#id_barang').val('');
+            $('#stok').val('');
+            $('#kode_barang').val('');
             $('#nama_barang').val('');
             $('#jumlah_barang').val('');
             $('#harga').val('');
@@ -321,6 +346,8 @@
   });
   $('#pilih_stok').on('click',function(){
     $('#modal_barang').modal('show');
+    $('#barangData').DataTable();
+    $('#barangData').DataTable().destroy();
     $('#barangData').DataTable({
       "processing": true,
       "serverSide": true,
@@ -379,10 +406,19 @@
       });
   });
   function hitungTotal(){
+    stok = $('#stok').val();
     jml = $('#jumlah_barang').val();
-    hrg = $('#harga').val();
-    thrg = jml*hrg;
-    $('#total_harga').val(thrg);
+    if(jml > stok){
+      alert("Jumlah Melebihi Stok");
+      $('#jumlah_barang').val(0);
+    }else if(jml < 0){
+      alert("Jumlah tidak boleh dibawah 0");
+      $('#jumlah_barang').val(0);
+    }else{
+      hrg = $('#harga').val();
+      thrg = jml*hrg;
+      $('#total_harga').val(thrg);
+    }
   }
   
 </script>

@@ -62,6 +62,7 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
+                            <input type="text" id="id_barang">
                             <label for="title">Stok Saat Ini</label>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
@@ -86,7 +87,7 @@
                     <div class="col-3">
                         <div class="form-group">
                             <label for="title">Jumlah Barang</label>
-                            <input type="text" onkeyup="hitungTotal()" name="jumlah_barang" id="jumlah_barang" class="form-control form-control-sm" placeholder="Jumlah Barang" required>
+                            <input type="text" onkeyup="hitungTotal()" min="0" name="jumlah_barang" id="jumlah_barang" class="form-control form-control-sm" placeholder="Jumlah Barang" required>
                         </div>
                     </div>
                     <div class="col-3">

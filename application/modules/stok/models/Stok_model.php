@@ -127,4 +127,7 @@ class Stok_model extends CI_Model
     $this->db->from("master_barang");
     return $this->db->get()->result_array();
   }
+  public function getDataBarang(){
+    return $this->db->get_where($this->table,['id_barang' => $_POST['id_barang']])->row();
+  }
 }?>

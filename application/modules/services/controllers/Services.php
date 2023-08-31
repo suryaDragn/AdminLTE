@@ -146,7 +146,8 @@ class Services extends MY_Controller
 		$i = $_POST['start'];
 		foreach ($menu as $d) {
 			$i++;
-				$data[] = array($i, $d->kode_barang, $d->nama_barang,$d->stok_awal,$d->stok_masuk,$d->stok_keluar,$d->stok_akhir,$d->harga);
+			$btn_pilih = '<button  id="pilihStok" class="btn btn-success btn-xs pilihStok"  data-id_stok="' . $d->id_barang . '">Pilih</button>';
+				$data[] = array($btn_pilih, $d->kode_barang, $d->nama_barang,$d->stok_akhir,$d->harga);
 		}
 
 		$output = array(
@@ -157,5 +158,8 @@ class Services extends MY_Controller
 		);
 		echo  json_encode($output);
     }
+	public function getDataBarang(){
+		echo json_encode($this->stok->getDataBarang());
+	}
 }
 ?>
