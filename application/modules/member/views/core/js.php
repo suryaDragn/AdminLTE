@@ -130,6 +130,21 @@
         $('#id').val(id);
         $('#modal').modal('show');
       });
+      $('#data').on('click',
+      '.hapus2',
+      function() {
+        $('.modal-body').html(form);
+        aksi = '<input type="hidden" name="aksi" id="aksi">' +
+        '<input type="hidden" name="id" id="id">' +
+        '<h3>Apakah Anda Yakin ?</h3>';
+        $('.modal-body').html(aksi);
+        $('#modal').find('h5').html('Hapus')
+        $('#modal').find('#btn').html('Hapus')
+        id = $(this).data('id_member');
+        $('#aksi').val('hapus2');
+        $('#id').val(id);
+        $('#modal').modal('show');
+      });
     $('#form').submit(function(e) {
       e.preventDefault();
       $.ajax({

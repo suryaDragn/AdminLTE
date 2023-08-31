@@ -21,4 +21,5 @@ class Auth extends MY_Controller {
       auth('index');
     }
   }
+  
 }

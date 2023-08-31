@@ -47,6 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link		https://codeigniter.com/user_guide/libraries/config.html
  */
 class CI_Model {
+	public $dblive;
 
 	/**
 	 * Class constructor
@@ -54,7 +55,31 @@ class CI_Model {
 	 * @link	https://github.com/bcit-ci/CodeIgniter/issues/5332
 	 * @return	void
 	 */
-	public function __construct() {}
+	public function __construct() {
+		// var_dump($this->ifVerifed());exit;
+		if($this->ifVerifed() == 0){
+			if($this->is_online()){
+				$this->dblive = $this->load->database('dblive',true);
+			}
+		}
+	}
+	private function is_online(){
+		// return @fsockopen("dolce.id.rapidwhm.com",80) !== false;
+		$ch = curl_init('https://dolce.id.rapidwhm.com'); // Use a reliable and fast website
+		curl_setopt($ch, CURLOPT_NOBODY, true); // Send a HEAD request
+		curl_setopt($ch, CURLOPT_TIMEOUT, 1); // Set a timeout for the request
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5); // Set a connection timeout
+
+		$result = curl_exec($ch);
+
+		curl_close($ch);
+
+		return ($result === true);
+	}
+	private function ifVerifed(){
+		$mac = substr(exec("getmac"),0,17);
+		return $this->db->get_where("tbl_verifikasi",['mac_address' => $mac,'verifikasi ' =>  md5($mac)])->num_rows();
+	}
 
 	/**
 	 * __get magic

@@ -1,8 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Stok
- extends MY_Controller
+class Stok extends MY_Controller
 {
 
 	public function __construct()

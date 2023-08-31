@@ -319,7 +319,24 @@
         }
       });
   });
+  $('#pilih_stok').on('click',function(){
+    $('#modal_barang').modal('show');
+    $('#barangData').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "order": [],
+      "ajax": {
+        "url": "<?= site_url('services/getListBarang'); ?>",
+        "type": "POST"
+      },
+      "columnDefs": [{
 
+        "targets": [0],
+        "orderable": false
+      }]
+
+    });
+  });
   $('#dataDetail').on('click',
       '.hapus',
       function() {

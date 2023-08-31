@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class Services extends MY_Controller
 {
 
@@ -23,6 +22,7 @@ class Services extends MY_Controller
 		parent::__construct();
 		$this->load->model('services_model', 'model');
 		$this->load->model('servicesdetail_model','detail');
+		$this->load->model('stok/stok_model','stok');
 	}
 
 	public function index()
@@ -140,5 +140,22 @@ class Services extends MY_Controller
 		$view = $this->print();
 		echo json_encode($view);
 	}
+	public function getListBarang(){
+        $data = array();
+		$menu = $this->stok->getRows($_POST,$this->session->userdata('role'));
+		$i = $_POST['start'];
+		foreach ($menu as $d) {
+			$i++;
+				$data[] = array($i, $d->kode_barang, $d->nama_barang,$d->stok_awal,$d->stok_masuk,$d->stok_keluar,$d->stok_akhir,$d->harga);
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->model->countAll(),
+			"recordsFiltered" => $this->model->countFiltered($_POST,$this->session->userdata('role')),
+			"data" => $data,
+		);
+		echo  json_encode($output);
+    }
 }
 ?>

@@ -51,8 +51,9 @@ class Member extends MY_Controller
 			}
 			$btn_edit = '<button type="button" class="btn btn-success btn-xs edit" data-id_member="'.$d->id_member.'"><i class="fas fa-fw fa-pen"></i> Edit</button>';
 			$btn_hapus = '<button  type="button" class="btn btn-danger btn-xs hapus"  data-id_member="' . $d->id_member . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
+			$btn_hapus2 = '<button  type="button" class="btn btn-danger btn-xs hapus2"  data-id_member="' . $d->id_member . '"><i class="fas fa-fw fa-trash"></i> Hapus</button>';
 			if($this->session->userdata('role') == '1'){
-				$data[] = array($i, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon, $active, $btn_edit . ' ' . $btn_hapus);
+				$data[] = array($i, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon, $active, $btn_edit . ' ' . $btn_hapus2);
 			}else{
 				$data[] = array($i, $d->nama_member, $d->jenis_mobil,$d->plat_nomor, $d->alamat, $d->nomor_telepon, $btn_edit . ' ' . $btn_hapus);
 			}
@@ -80,6 +81,9 @@ class Member extends MY_Controller
 			echo json_encode($data);
 		} else if ($_POST['aksi'] == 'hapus') {
 			$data = $this->model->hapus();
+			echo json_encode($data);
+		} else if($_POST['aksi'] == 'hapus2'){
+			$data = $this->model->hapus2();
 			echo json_encode($data);
 		}
 	}

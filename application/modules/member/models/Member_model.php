@@ -109,6 +109,19 @@ class Member_model extends CI_Model
 
     return $data;
   }
+  public function hapus2() {
+    $id = htmlspecialchars($_POST['id']);
+
+    $this->db->where($this->id, $id);
+    $this->db->delete($this->table);
+
+    $data = [
+      'status' => true,
+      'pesan' => "Data Menu Berhasil Dihapus"
+    ];
+
+    return $data;
+  }
   public function changeActive(){
     $data = $_POST;
     $this->db->where($this->id, $data['id_member']);

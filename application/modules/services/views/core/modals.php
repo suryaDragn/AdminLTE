@@ -60,31 +60,48 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <div class="form-group">
-                            <label for="title">Nama Barang</label>
-                            <input type="text" name="nama_barang" id="nama_barang" class="form-control form-control-sm" placeholder="Nama Barang" required>
+                            <label for="title">Stok Saat Ini</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary" type="button" id="pilih_stok">Pilih</button>
+                                </div>
+                                <input type="text" name="stok" id="stok" disabled class="form-control form-control-sm" placeholder="Stok Saat ini" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="title">Kode Barang</label>
+                            <input type="text" name="kode_barang" id="kode_barang" disabled class="form-control form-control-sm" placeholder="Kode Barang" required>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="title">Nama Barang</label>
+                            <input type="text" name="nama_barang" id="nama_barang" disabled class="form-control form-control-sm" placeholder="Nama Barang" required>
+                        </div>
+                    </div>
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="title">Jumlah Barang</label>
                             <input type="text" onkeyup="hitungTotal()" name="jumlah_barang" id="jumlah_barang" class="form-control form-control-sm" placeholder="Jumlah Barang" required>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="title">Harga</label>
-                            <input type="text" onkeyup="hitungTotal()" name="harga" id="harga" class="form-control form-control-sm" placeholder="Harga" required>
+                            <input type="text" onkeyup="hitungTotal()" name="harga" disabled id="harga" class="form-control form-control-sm" placeholder="Harga" required>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="title">Total Harga</label>
                             <input type="text" disabled name="total_harga" id="total_harga" class="form-control form-control-sm" placeholder="Total Harga" required>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <div class="form-group">
                             <label for="title">Simpan Data</label>
                             <input type="submit" class="form-control form-control-sm btn btn-primary" id="btnTmbh" value="Simpan">
@@ -185,6 +202,35 @@
                         </tr>
                     </thead>
                     <tbody id="dataMember">
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_barang" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Daftar Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body pad table-responsive">
+                    <table class="table table-bordered table-sm dt-responsive nowrap" id="barangData" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="5%">Aksi</th>
+                            <th>Kode Barang</th>
+                            <th width="10%">Nama Barang</th>
+                            <th width="5%">Stok</th>
+                            <th width="10%">Harga</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataBarang">
                     </tbody>
                     </table>
                 </div>

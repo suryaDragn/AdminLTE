@@ -41,6 +41,6 @@
         </div>
       </div>
     </div>
-    <div id="printView">woyo</div>
+    <div id="printView"></div>
   </div>
 </section>

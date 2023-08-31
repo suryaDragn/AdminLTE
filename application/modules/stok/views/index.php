@@ -30,7 +30,7 @@
                   <th>Stok Awal Barang</th>
                   <th>Barang Masuk</th>
                   <th>Barang Keluar</th>
-                  <th>Stok AkhirBarang</th>
+                  <th>Stok Akhir Barang</th>
                   <th>Harga Barang</th>
                 </tr>
               </thead>

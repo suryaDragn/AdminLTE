@@ -8,10 +8,10 @@ class Stok_model extends CI_Model
   public $column_search;
   public $order;
   function __construct() {
-    $this->table = 'master_barang';
+    $this->table = 'v_stok_barang';
     $this->id = 'id_barang';
-    $this->column_order = array(null,'tanggal','kode_barang', 'nama_barang','jumlah_barang',  null);
-    $this->column_search = array('tanggal','kode_barang', 'nama_barang','jumlah_barang');
+    $this->column_order = array(null,'kode_barang', 'nama_barang','stok_awal','stok_masuk','stok_keluar','stok_akhir','harga');
+    $this->column_search = array('kode_barang', 'nama_barang','stok_awal','stok_masuk','stok_keluar','stok_akhir','harga');
     $this->order = array('id_barang' => 'asc');
   }
   public function getRows($postData,$role) {
@@ -22,36 +22,9 @@ class Stok_model extends CI_Model
     $query = $this->db->get();
     return $query->result();
   }
-  public function subquery(){
-    $subquery = $this->db->select(
-      "mb.*, mso.tanggal_stok_opname,
-      CASE 
-          WHEN tanggal_stok_opname IS NOT NULL THEN 
-              (SELECT jumlah_barang FROM stokopname WHERE id_barang = mb.id_barang AND tanggal = mso.tanggal_stok_opname) 
-          ELSE 0 
-      END AS stok_awal,
-      COALESCE(
-          (SELECT SUM(jumlah_barang) FROM barang_masuk WHERE id_barang = mb.id_barang AND tanggal > tanggal_stok_opname GROUP BY id_barang), 
-          0
-      ) AS stok_masuk,
-      COALESCE(
-          (SELECT SUM(COALESCE(jumlah_barang, 0)) FROM service_detail sd INNER JOIN services s ON sd.id_service = s.id_service WHERE id_barang = mb.id_barang AND tanggal > tanggal_stok_opname GROUP BY id_barang), 
-          0
-      ) AS stok_keluar"
-  )
-  ->from("master_barang mb")
-  ->join(
-      "(SELECT MAX(tanggal) AS tanggal_stok_opname, id_barang, kode_barang FROM stokopname GROUP BY id_barang, kode_barang) AS mso",
-      "mb.id_barang = mso.id_barang",
-      "left"
-  )
-  ->get_compiled_select();
-  return $subquery;
-  }
+  
   public function countAll() {
-    $subquery = $this->subquery();
-    $this->db->from("($subquery) as stok")
-    ->select('stok.*, stok.stok_awal + stok.stok_masuk - stok.stok_keluar AS stok_akhir', FALSE);
+    $this->db->from($this->table);
     return $this->db->count_all_results();
   }
 
@@ -62,9 +35,7 @@ class Stok_model extends CI_Model
   }
 
   private function _get_datatables_query($postData,$role) {
-    $subquery = $this->subquery();
-    $this->db->from("($subquery) as stok")
-    ->select('stok.*, stok.stok_awal + stok.stok_masuk - stok.stok_keluar AS stok_akhir', FALSE);
+    $this->db->from($this->table);
 
     $i = 0;
     foreach ($this->column_search as $item) {

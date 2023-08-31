@@ -7,6 +7,12 @@ if (!function_exists('element')) {
     $data['view'] = $ci->load->view($template, $data, true);
     $ci->load->view('_layout/auth/index.php', $data);
   }
+  function regis($template, $data = null)
+  {
+    $ci = &get_instance();
+    $data['view'] = $ci->load->view($template, $data, true);
+    $ci->load->view('_layout/auth/index.php', $data);
+  }
 
 
   function admin($template, $data = null)
